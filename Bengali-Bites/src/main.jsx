@@ -6,10 +6,11 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Navbar from './components/Navbar.jsx';
 import Registration from './components/Registration.jsx';
 import Login from './components/Login.jsx';
 import Home from './components/Home.jsx';
+import ChefRecipes from './components/ChefRecipes.jsx';
+
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,14 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: <Login></Login>
+      },
+      {
+        path: 'recipes',
+        element: <ChefRecipes></ChefRecipes>
+
       }
+
+
     ]
   },
 ]);
