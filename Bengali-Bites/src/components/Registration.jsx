@@ -1,7 +1,40 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./Provider/AuthProvider";
+
 
 const Registration = () => {
+  const [error, setError] = useState("");
+  const { createUser, googleSign, sendEmailVerification } =
+    useContext(AuthContext);
+
+  const handleRegistration = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    const userName = form.name.value;
+    console.log(email, password, userName);
+
+    setError("");
+    if (password.length < 6) {
+      return setError("Password should be more then 6 digits");
+    }
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => setError(error.message));
+  };
+
+  const signInWithGoogle = () => {
+    return googleSign()
+      .then((result) => {
+        const user = result.user;
+        console.log(user)
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <>
       <div className="hero min-h-screen bg-base-200">
@@ -10,7 +43,7 @@ const Registration = () => {
             <h1 className="text-5xl font-bold my-12">Registration Now!</h1>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form className="card-body">
+            <form onSubmit={handleRegistration} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">User Name</span>
@@ -18,7 +51,7 @@ const Registration = () => {
                 <input
                   type="text"
                   placeholder="User"
-                  name="text"
+                  name="name"
                   className="input input-bordered"
                 />
               </div>
@@ -66,7 +99,7 @@ const Registration = () => {
                 </button>
               </div>
               <div>
-                <div className="flex items-center gap-2 cursor-pointer bg-slate-300 rounded p-2">
+                <div onClick={signInWithGoogle} className="flex items-center gap-2 cursor-pointer bg-slate-300 rounded p-2">
                   <div>
                     <img
                       className="w-10 h-10 rounded-full"

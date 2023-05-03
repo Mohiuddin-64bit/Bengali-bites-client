@@ -1,7 +1,55 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "./Provider/AuthProvider";
 
 const Login = () => {
+  const [error, setError] = useState("");
+  const { singIn, googleSign, forgotPassword } = useContext(AuthContext);
+  // const navigate = useNavigate();
+  // const location = useLocation()
+  // const from = location.state?.from?.pathname || '/';
+  // console.log(from)
+
+  const handleForm = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+
+    setError("");
+    if (password.length < 6) {
+      return setError("Password should be more then 6 digits");
+    }
+    singIn(email, password)
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => setError(error.message));
+  };
+
+  const signInWithGoogle = () => {
+    googleSign()
+      .then((result) => {
+        const user = result.user;
+        navigate(from, { replace: true });
+      })
+      .catch((error) => console.log(error));
+  };
+  const resetPassword = () => {
+    forgotPassword()
+      .then((result) => {
+        // Email sent.
+        console.log(result);
+      })
+      .catch((error) => {
+        // An error happened.
+        // console.log(error.message)
+      });
+  };
+
+  const [show, setShow] = useState(false);
   return (
     <>
       <div className="hero min-h-screen bg-base-200">
@@ -10,7 +58,7 @@ const Login = () => {
             <h1 className="text-5xl font-bold my-12 px-52">Login Now!</h1>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <form className="card-body">
+            <form onSubmit={handleForm} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -23,18 +71,43 @@ const Login = () => {
                 />
               </div>
               <div className="form-control">
+                {show ? (
+                  <span>
+                    <label className="label">
+                      <span className="label-text">Password</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="password"
+                      required
+                      placeholder="password"
+                      className="input input-bordered"
+                    />
+                  </span>
+                ) : (
+                  <span>
+                    <label className="label">
+                      <span className="label-text">Password</span>
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      required
+                      placeholder="password"
+                      className="input input-bordered"
+                    />
+                  </span>
+                )}
                 <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  className="input input-bordered"
-                />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
+                  <a
+                    onClick={() => setShow(!show)}
+                    className="label-text-alt link link-hover font-bold "
+                  >
+                    {show ? (
+                      <span>Hide Password</span>
+                    ) : (
+                      <span>Show Password</span>
+                    )}
                   </a>
                 </label>
               </div>
@@ -44,21 +117,39 @@ const Login = () => {
                 </button>
               </div>
               <div>
-                <div className="flex items-center gap-2 cursor-pointer bg-slate-300 rounded p-2">
+                <div
+                  onClick={signInWithGoogle}
+                  className="flex items-center gap-2 cursor-pointer bg-slate-300 rounded p-2"
+                >
                   <div>
-                    <img className="w-10 h-10 rounded-full" src="../../public/img/google2.png" alt="" />
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src="../../public/img/google2.png"
+                      alt=""
+                    />
                   </div>
-                  <h4 >Google</h4>
+                  <h4>Google</h4>
                 </div>
                 <div className="cursor-pointer flex mt-3 items-center gap-2 bg-slate-300 rounded p-2">
                   <div>
-                    <img className="w-10 h-10 rounded-full" src="../../public/img/github.png" alt="" />
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src="../../public/img/github.png"
+                      alt=""
+                    />
                   </div>
-                  <h4 >GitHub</h4>
+                  <h4>GitHub</h4>
                 </div>
               </div>
             </form>
-            <p className="text-center mb-3"><small>Create an Account? <Link className="text-blue-500 font-bold" to='../registration'>Click Here</Link></small></p>
+            <p className="text-center mb-3">
+              <small>
+                Create an Account?{" "}
+                <Link className="text-blue-500 font-bold" to="../registration">
+                  Click Here
+                </Link>
+              </small>
+            </p>
           </div>
         </div>
       </div>

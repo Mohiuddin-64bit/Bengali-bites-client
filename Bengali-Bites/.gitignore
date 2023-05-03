@@ -14,7 +14,7 @@
 
 # dotenv environment variables file
 /.env
-
+/.env.local
 # IDE files
 /.idea
 /.vscode
