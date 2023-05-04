@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUpFromGroundWater,
   faHeart,
   faStar,
 } from "@fortawesome/free-solid-svg-icons";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RecipeCard = ({ recipe }) => {
+  const [fav, isFav] = useState(false);
   return (
     <div>
       <div className="card w-96 bg-indigo-100 shadow-xl">
@@ -23,7 +26,18 @@ const RecipeCard = ({ recipe }) => {
             <FontAwesomeIcon icon={faStar} /> Rating: {recipe.rating}/5
           </p>
           <p className="text-gray-500">{recipe.cooking_method}</p>
-          <div className="card-actions justify-end"></div>
+          <div className="card-actions justify-end">
+            <button
+              onClick={() => {
+                isFav(!fav);
+                toast.success("Added to favorites!");
+              }}
+              className="btn btn-primary"
+            >
+              Favorite
+            </button>
+            <ToastContainer />
+          </div>
         </div>
       </div>
     </div>

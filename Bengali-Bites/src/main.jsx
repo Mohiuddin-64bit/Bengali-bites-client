@@ -9,6 +9,7 @@ import Home from "./components/Home.jsx";
 import ChefRecipes from "./components/ChefRecipes.jsx";
 import AuthProvider from "./components/Provider/AuthProvider.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
+import PrivateRoute from "./components/PrivateRouter.jsx";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
       },
       {
         path: "chef/:id",
-        element: <ChefRecipes></ChefRecipes>,
+        element: <PrivateRoute><ChefRecipes></ChefRecipes></PrivateRoute>,
         loader: ({params}) => fetch(`https://benglali-bites-server.vercel.app/chefs/${params.id}`)
       },
     ],

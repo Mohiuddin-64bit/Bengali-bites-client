@@ -9,7 +9,8 @@ import {
   signInWithEmailAndPassword,
   signOut,
   sendPasswordResetEmail,
-  sendEmailVerification
+  sendEmailVerification,
+  GithubAuthProvider
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
@@ -17,11 +18,15 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
+  const gitHubProvider = new GithubAuthProvider
   const [loading, setLoading] = useState(true);
 
   const googleSign = () => {
     return signInWithPopup(auth, googleProvider);
   };
+  const gitHubSign = () => {
+    return signInWithPopup(auth, gitHubProvider)
+  }
   
 
   const [user, setUser] = useState(null);
@@ -59,7 +64,8 @@ const AuthProvider = ({ children }) => {
     logOut,
     googleSign,
     forgotPassword,
-    sendEmailVerification
+    sendEmailVerification,
+    gitHubSign
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

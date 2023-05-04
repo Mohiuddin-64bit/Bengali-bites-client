@@ -4,7 +4,8 @@ import { AuthContext } from "./Provider/AuthProvider";
 
 const Login = () => {
   const [error, setError] = useState("");
-  const { singIn, googleSign, forgotPassword } = useContext(AuthContext);
+  const [user, setUser] = useState('')
+  const { singIn, googleSign, gitHubSign } = useContext(AuthContext);
   // const navigate = useNavigate();
   // const location = useLocation()
   // const from = location.state?.from?.pathname || '/';
@@ -24,6 +25,7 @@ const Login = () => {
     singIn(email, password)
       .then((result) => {
         console.log(result.user);
+        setUser(result.user)
         // navigate("/");
       })
       .catch((error) => setError(error.message));
@@ -33,20 +35,19 @@ const Login = () => {
     googleSign()
       .then((result) => {
         const user = result.user;
+        setUser(user)
         navigate(from, { replace: true });
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setError(error.message));
   };
-  const resetPassword = () => {
-    forgotPassword()
-      .then((result) => {
-        // Email sent.
-        console.log(result);
-      })
-      .catch((error) => {
-        // An error happened.
-        // console.log(error.message)
-      });
+  const signInWithGitHub = () => {
+    return gitHubSign().then(result => {
+      const user = result.user;
+      setUser(user)
+    })
+    .catch(error => {
+      setError(error.message)
+    })
   };
 
   const [show, setShow] = useState(false);
@@ -130,7 +131,7 @@ const Login = () => {
                   </div>
                   <h4>Google</h4>
                 </div>
-                <div className="cursor-pointer flex mt-3 items-center gap-2 bg-slate-300 rounded p-2">
+                <div onClick={signInWithGitHub} className="cursor-pointer flex mt-3 items-center gap-2 bg-slate-300 rounded p-2">
                   <div>
                     <img
                       className="w-10 h-10 rounded-full"

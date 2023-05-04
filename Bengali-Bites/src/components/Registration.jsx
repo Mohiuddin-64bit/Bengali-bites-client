@@ -5,7 +5,7 @@ import { AuthContext } from "./Provider/AuthProvider";
 
 const Registration = () => {
   const [error, setError] = useState("");
-  const { createUser, googleSign, sendEmailVerification } =
+  const { createUser, googleSign, gitHubSign } =
     useContext(AuthContext);
 
   const handleRegistration = (event) => {
@@ -33,8 +33,16 @@ const Registration = () => {
         const user = result.user;
         console.log(user)
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setError(error.message));
   };
+  const signInWithGitHub = () => {
+    return gitHubSign().then(result => {
+      const user = result.user;
+    })
+    .catch(error => {
+      setError(error.message)
+    })
+  }
   return (
     <>
       <div className="hero min-h-screen bg-base-200">
@@ -109,7 +117,7 @@ const Registration = () => {
                   </div>
                   <h4>Google</h4>
                 </div>
-                <div className="cursor-pointer flex mt-3 items-center gap-2 bg-slate-300 rounded p-2">
+                <div onClick={signInWithGitHub} className="cursor-pointer flex mt-3 items-center gap-2 bg-slate-300 rounded p-2">
                   <div>
                     <img
                       className="w-10 h-10 rounded-full"
