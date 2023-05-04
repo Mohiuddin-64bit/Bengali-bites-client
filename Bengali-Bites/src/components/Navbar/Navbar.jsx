@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "./Provider/AuthProvider";
-
+import { NavLink, Link } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
+import "./Navbar.css"
 
 const Header = () => {
-  const { user, logOut, loading  } = useContext(AuthContext);
+  const { user, logOut, loading } = useContext(AuthContext);
   const handleLogOut = () => {
     logOut()
       .then((result) => {})
@@ -14,7 +14,9 @@ const Header = () => {
     <div>
       <div className="navbar bg-base-100 px-12">
         <div className="flex-1">
-          <Link to='/' className="btn btn-ghost normal-case text-xl">Bengali Bites</Link>
+          <Link to="/" className="btn btn-ghost normal-case text-xl">
+            Bengali Bites
+          </Link>
         </div>
         <div className="flex-none gap-4">
           {user ? (
@@ -22,10 +24,12 @@ const Header = () => {
               <div className="flex items-center">
                 <div className="avatar online">
                   <div className="w-12 rounded-full">
-                    <img  src={user.photoURL} />
+                    <img src={user.photoURL} />
                   </div>
                 </div>
-                <p className="font-bold ml-4">{user.displayName || user.email}</p>
+                <p className="font-bold ml-4">
+                  {user.displayName || user.email}
+                </p>
               </div>
               <button className="btn btn-success" onClick={handleLogOut}>
                 Log Out
@@ -36,10 +40,19 @@ const Header = () => {
               <button className="btn btn-success">Log In</button>
             </Link>
           )}
-            <Link to='/'>Home</Link>
-            <Link to='blog'>Blog</Link>
-            <Link to='login'>Login</Link>
-            <Link to='registration'>Registration</Link>
+
+          <NavLink exact to="/" activeClassName="active" className='font-semibold'>
+            Home
+          </NavLink>
+          <NavLink to="/blog" activeClassName="active" className='font-semibold'>
+            Blog
+          </NavLink>
+          <NavLink to="/login" activeClassName="active" className='font-semibold'>
+            Login
+          </NavLink>
+          <NavLink to="/registration" activeClassName="active" className='font-semibold'>
+            Registration
+          </NavLink>
         </div>
       </div>
     </div>
