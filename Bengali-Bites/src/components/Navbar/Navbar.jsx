@@ -19,7 +19,7 @@ const Header = () => {
     <div>
       <div className="navbar bg-base-100 px-12">
         <div className="flex-1">
-          <Link to="/" className="btn btn-ghost normal-case text-xl">
+          <Link to="/" className="btn btn-ghost normal-case text-lg lg:text-xl">
             Bengali Bites
           </Link>
         </div>

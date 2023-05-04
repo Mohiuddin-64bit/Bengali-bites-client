@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Chefs from "./Chefs";
 import Details from "./Details";
+import AddressSection from "./AddressSection";
 
 const Home = () => {
   const [chefs, setChefs] = useState([]);
@@ -57,6 +58,7 @@ const Home = () => {
         </div>
       )}
       <Details></Details>
+      <AddressSection></AddressSection>
     </>
   );
 };
