@@ -24,7 +24,7 @@ const Login = () => {
     singIn(email, password)
       .then((result) => {
         console.log(result.user);
-        navigate("/");
+        // navigate("/");
       })
       .catch((error) => setError(error.message));
   };

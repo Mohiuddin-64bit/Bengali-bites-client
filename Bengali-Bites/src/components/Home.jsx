@@ -1,20 +1,25 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+
+import Chefs from "./Chefs";
 
 const Home = () => {
+  const [chefs, setChefs] = useState([]);
+  useEffect(() => {
+    fetch("http://localhost:5000/chefs")
+      .then((res) => res.json())
+      .then((data) => setChefs(data));
+  }, []);
   return (
     <>
       <div
         className="hero min-h-screen"
-        style={{ backgroundImage: `url("../../public/img/food.jpg")` }}
+        style={{ backgroundImage: `url("img/food.jpg")` }}
       >
         <div className="hero-overlay bg-opacity-60"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">
             <h1 className="mb-5 text-4xl font-bold">
-              Hello there <br />{" "}
+              Hello there <br />
               <span className="text-yellow-300 text-5xl">
                 This is Bengali bites
               </span>
@@ -33,32 +38,15 @@ const Home = () => {
         <h3 className="text-3xl text-center font-bold my-12 underline">
           Chef's Section
         </h3>
-        <div className="grid grid-cols-3 container mx-auto mb-12">
-          <div className="card card-compact w-96 bg-base-100 shadow-xl">
-            <figure>
-              <img
-                src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-                alt="Shoes"
-              />
-            </figure>
-            <div className="card-body">
-              <h2 className="card-title">Chef's name</h2>
-              <h2>3 year's Experience</h2>
-              <h3>8 Recipes</h3>
-              <h3>
-                <FontAwesomeIcon icon={faHeart} /> 8
-              </h3>
-              <div className="card-actions justify-end">
-                <Link to='recipes' className="btn btn-primary">View Recipe's</Link>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
+
+        <div className="grid grid-cols-3 container mx-auto mb-12 gap-9">
+        {chefs.map((chef) => <Chefs chef={chef} key={chef.id}></Chefs>)}
+        </div>
+
       <h3 className="text-3xl text-center font-bold my-12 underline">
         Food Display Section
       </h3>
-      
     </>
   );
 };
