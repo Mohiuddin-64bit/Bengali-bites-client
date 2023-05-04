@@ -4,10 +4,15 @@ import Chefs from "./Chefs";
 
 const Home = () => {
   const [chefs, setChefs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    fetch("http://localhost:5000/chefs")
+    fetch("https://benglali-bites-server.vercel.app/chefs")
       .then((res) => res.json())
-      .then((data) => setChefs(data));
+      .then((data) => {
+        setChefs(data);
+        setLoading(false);
+      });
   }, []);
   return (
     <>
@@ -39,10 +44,17 @@ const Home = () => {
           Chef's Section
         </h3>
       </div>
-
-        <div className="grid grid-cols-3 container mx-auto mb-12 gap-9">
-        {chefs.map((chef) => <Chefs chef={chef} key={chef.id}></Chefs>)}
+      {loading ? (
+        <div className="text-center">
+          <button className="btn loading ">loading</button>
         </div>
+      ) : (
+        <div className="grid grid-cols-3 container mx-auto mb-12 gap-9">
+          {chefs.map((chef) => (
+            <Chefs chef={chef} key={chef.id}></Chefs>
+          ))}
+        </div>
+      )}
 
       <h3 className="text-3xl text-center font-bold my-12 underline">
         Food Display Section

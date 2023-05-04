@@ -14,7 +14,7 @@ const Header = () => {
     <div>
       <div className="navbar bg-base-100 px-12">
         <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">Bengali Bites</a>
+          <Link to='/' className="btn btn-ghost normal-case text-xl">Bengali Bites</Link>
         </div>
         <div className="flex-none gap-4">
           {user ? (
