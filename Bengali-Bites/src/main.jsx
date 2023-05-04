@@ -10,6 +10,7 @@ import ChefRecipes from "./components/ChefRecipes.jsx";
 import AuthProvider from "./components/Provider/AuthProvider.jsx";
 import ErrorPage from "./components/ErrorPage.jsx";
 import PrivateRoute from "./components/PrivateRouter.jsx";
+import Blogs from "./components/Blog.jsx";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "registration",
         element: <Registration></Registration>,
+      },
+      {
+        path: 'blog',
+        element: <Blogs></Blogs>
       },
       {
         path: "login",

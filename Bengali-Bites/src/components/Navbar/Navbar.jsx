@@ -19,13 +19,13 @@ const Header = () => {
     <div>
       <div className="navbar bg-base-100 px-12">
         <div className="flex-1">
-          <Link to="/" className="btn btn-ghost normal-case text-lg lg:text-xl">
+          <Link to="/" className="btn btn-ghost normal-case text-sm lg:text-xl">
             Bengali Bites
           </Link>
         </div>
         <div className="flex-none gap-4">
           {user ? (
-            <div className="flex items-center gap-5">
+            <div className="flex items-center  gap-5">
               <div className="flex items-center">
                 <div className="avatar online">
                   <div className="w-12 rounded-full">

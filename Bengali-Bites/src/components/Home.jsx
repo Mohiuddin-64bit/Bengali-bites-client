@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Chefs from "./Chefs";
 import Details from "./Details";
 import AddressSection from "./AddressSection";
+import Blogs from "./Blog";
 
 const Home = () => {
   const [chefs, setChefs] = useState([]);
