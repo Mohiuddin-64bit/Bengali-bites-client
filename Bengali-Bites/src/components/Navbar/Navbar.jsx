@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
-import "./Navbar.css"
+import "./Navbar.css";
 
 const Header = () => {
   const { user, logOut, loading } = useContext(AuthContext);
@@ -9,6 +9,11 @@ const Header = () => {
     logOut()
       .then((result) => {})
       .catch((error) => console.log(error));
+  };
+  const [showMenu, setShowMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
   };
   return (
     <div>
@@ -40,19 +45,44 @@ const Header = () => {
               <button className="btn btn-success">Log In</button>
             </Link>
           )}
-
-          <NavLink exact to="/" activeClassName="active" className='font-semibold'>
-            Home
-          </NavLink>
-          <NavLink to="/blog" activeClassName="active" className='font-semibold'>
-            Blog
-          </NavLink>
-          <NavLink to="/login" activeClassName="active" className='font-semibold'>
-            Login
-          </NavLink>
-          <NavLink to="/registration" activeClassName="active" className='font-semibold'>
-            Registration
-          </NavLink>
+          <button className="block md:hidden text-2xl" onClick={toggleMenu}>
+            {showMenu ? <>&times;</> : <>&#9776;</>}
+          </button>
+          <div
+            className={`flex-none md:flex gap-4 ${
+              showMenu ? "block" : "hidden"
+            }`}
+          >
+            <NavLink
+              exact
+              to="/"
+              activeClassName="active"
+              className="font-semibold"
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to="/blog"
+              activeClassName="active"
+              className="font-semibold"
+            >
+              Blog
+            </NavLink>
+            <NavLink
+              to="/login"
+              activeClassName="active"
+              className="font-semibold"
+            >
+              Login
+            </NavLink>
+            <NavLink
+              to="/registration"
+              activeClassName="active"
+              className="font-semibold"
+            >
+              Registration
+            </NavLink>
+          </div>
         </div>
       </div>
     </div>

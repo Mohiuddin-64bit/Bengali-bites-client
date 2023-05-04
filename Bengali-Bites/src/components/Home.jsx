@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import Chefs from "./Chefs";
+import Details from "./Details";
 
 const Home = () => {
   const [chefs, setChefs] = useState([]);
@@ -49,16 +50,13 @@ const Home = () => {
           <button className="btn loading ">loading</button>
         </div>
       ) : (
-        <div className="grid grid-cols-3 container mx-auto mb-12 gap-9">
+        <div className="grid lg:grid-cols-3 container mx-auto mb-12 gap-9">
           {chefs.map((chef) => (
             <Chefs chef={chef} key={chef.id}></Chefs>
           ))}
         </div>
       )}
-
-      <h3 className="text-3xl text-center font-bold my-12 underline">
-        Food Display Section
-      </h3>
+      <Details></Details>
     </>
   );
 };
