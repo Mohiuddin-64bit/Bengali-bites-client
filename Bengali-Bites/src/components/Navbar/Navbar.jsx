@@ -10,10 +10,6 @@ const Header = () => {
       .then((result) => {})
       .catch((error) => console.log(error));
   };
-  const [showMenu, setShowMenu] = useState(false);
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
-  };
   return (
     <div>
       <div className="navbar bg-base-100 px-12">
@@ -44,14 +40,7 @@ const Header = () => {
               <button className="btn btn-success">Log In</button>
             </Link>
           )}
-          <button className="block md:hidden text-2xl" onClick={toggleMenu}>
-            {showMenu ? <>&times;</> : <>&#9776;</>}
-          </button>
-          <div
-            className={`flex-none lg:flex gap-4 ${
-              showMenu ? "block" : "hidden"
-            }`}
-          >
+          <div className=" menu lg:menu-horizontal lg:gap-8">
             <NavLink
               exact="true"
               to="/"

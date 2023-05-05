@@ -58,6 +58,7 @@ const Home = () => {
           ))}
         </div>
       )}
+
       <Details></Details>
       <AddressSection></AddressSection>
     </>

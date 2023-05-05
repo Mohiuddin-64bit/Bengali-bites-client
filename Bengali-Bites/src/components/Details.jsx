@@ -3,16 +3,16 @@ import React from "react";
 const Details = () => {
   return (
     <div>
-      <h3 className="text-5xl text-center font-bold my-24 ">
+      <h3 className="text-5xl text-center font-bold px-6 my-24 ">
         Our Website Details
       </h3>
-      <div className="hero min-h-screen bg-base-200">
-        <div className="hero-content flex-col lg:flex-row-reverse">
+      <div className="hero  bg-base-200">
+        <div className="hero-content flex gap-12 flex-col">
           <img
             src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Zm9vZHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-            className="max-w-sm rounded-lg shadow-2xl"
+            className="rounded-lg shadow-2xl"
           />
-          <div>
+          <div className="px-12">
             <h1 className="text-3xl font-bold">
               Discover the Flavors and Culture of Bengali Cuisine through a
               Chef's Website
