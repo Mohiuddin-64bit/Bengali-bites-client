@@ -4,28 +4,29 @@ import { AuthContext } from "./Provider/AuthProvider";
 
 const Login = () => {
   const [error, setError] = useState("");
-  const [user, setUser] = useState('')
-  const { singIn, googleSign, gitHubSign } = useContext(AuthContext);
-  // const navigate = useNavigate();
-  // const location = useLocation()
-  // const from = location.state?.from?.pathname || '/';
-  // console.log(from)
+  const [user, setUser] = useState("");
+  const { signIn, googleSign, gitHubSign } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/';
+  console.log(from)
 
   const handleForm = (event) => {
     event.preventDefault();
+    
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
+
 
     setError("");
     if (password.length < 6) {
       return setError("Password should be more then 6 digits");
     }
-    singIn(email, password)
+    signIn(email, password)
       .then((result) => {
         console.log(result.user);
-        setUser(result.user)
+        setUser(result.user);
         // navigate("/");
       })
       .catch((error) => setError(error.message));
@@ -35,19 +36,20 @@ const Login = () => {
     googleSign()
       .then((result) => {
         const user = result.user;
-        setUser(user)
+        setUser(user);
         navigate(from, { replace: true });
       })
       .catch((error) => setError(error.message));
   };
   const signInWithGitHub = () => {
-    return gitHubSign().then(result => {
-      const user = result.user;
-      setUser(user)
-    })
-    .catch(error => {
-      setError(error.message)
-    })
+    return gitHubSign()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   };
 
   const [show, setShow] = useState(false);
@@ -73,7 +75,7 @@ const Login = () => {
               </div>
               <div className="form-control">
                 {show ? (
-                  <span>
+                  <div>
                     <label className="label">
                       <span className="label-text">Password</span>
                     </label>
@@ -84,9 +86,9 @@ const Login = () => {
                       placeholder="password"
                       className="input input-bordered"
                     />
-                  </span>
+                  </div>
                 ) : (
-                  <span>
+                  <div>
                     <label className="label">
                       <span className="label-text">Password</span>
                     </label>
@@ -97,7 +99,7 @@ const Login = () => {
                       placeholder="password"
                       className="input input-bordered"
                     />
-                  </span>
+                  </div>
                 )}
                 <label className="label">
                   <a
@@ -125,17 +127,20 @@ const Login = () => {
                   <div>
                     <img
                       className="w-10 h-10 rounded-full"
-                      src="../../public/img/google2.png"
+                      src="img/google2.png"
                       alt=""
                     />
                   </div>
                   <h4>Google</h4>
                 </div>
-                <div onClick={signInWithGitHub} className="cursor-pointer flex mt-3 items-center gap-2 bg-slate-300 rounded p-2">
+                <div
+                  onClick={signInWithGitHub}
+                  className="cursor-pointer flex mt-3 items-center gap-2 bg-slate-300 rounded p-2"
+                >
                   <div>
                     <img
                       className="w-10 h-10 rounded-full"
-                      src="../../public/img/github.png"
+                      src="img/github.png"
                       alt=""
                     />
                   </div>
@@ -144,6 +149,7 @@ const Login = () => {
               </div>
             </form>
             <p className="text-center mb-3">
+              <span className="text-red-500 font-bold text-lg"><small>{error}</small></span><br />
               <small>
                 Create an Account?{" "}
                 <Link className="text-blue-500 font-bold" to="../registration">

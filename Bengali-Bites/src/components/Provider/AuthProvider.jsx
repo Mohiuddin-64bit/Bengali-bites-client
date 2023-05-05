@@ -10,7 +10,7 @@ import {
   signOut,
   sendPasswordResetEmail,
   sendEmailVerification,
-  GithubAuthProvider
+  GithubAuthProvider,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
@@ -18,16 +18,15 @@ const auth = getAuth(app);
 
 const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
-  const gitHubProvider = new GithubAuthProvider
+  const gitHubProvider = new GithubAuthProvider();
   const [loading, setLoading] = useState(true);
 
   const googleSign = () => {
     return signInWithPopup(auth, googleProvider);
   };
   const gitHubSign = () => {
-    return signInWithPopup(auth, gitHubProvider)
-  }
-  
+    return signInWithPopup(auth, gitHubProvider);
+  };
 
   const [user, setUser] = useState(null);
 
@@ -35,7 +34,7 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  const singIn = (email, password) => {
+  const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
   const logOut = () => {
@@ -44,28 +43,27 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
     });
     return () => {
-      return unsubscribe;
-      setLoading(false)
+      return unsubscribe
     };
   }, []);
 
   const forgotPassword = () => {
     return sendPasswordResetEmail(user.email);
-  }
-
+  };
 
   const authInfo = {
     loading,
     user,
     createUser,
-    singIn,
+    signIn,
     logOut,
     googleSign,
     forgotPassword,
     sendEmailVerification,
-    gitHubSign
+    gitHubSign,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

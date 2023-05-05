@@ -1,10 +1,6 @@
 import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowUpFromGroundWater,
-  faHeart,
-  faStar,
-} from "@fortawesome/free-solid-svg-icons";
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -21,10 +17,10 @@ const RecipeCard = ({ recipe }) => {
               <li>{ingre}</li>
             ))}
           </ul>
-          <h4 className="font-bold underline">Cooking Method:</h4>
           <p>
-            <FontAwesomeIcon icon={faStar} /> Rating: {recipe.rating}/5
+            <span className="font-bold underline">Rating:</span> <Rating style={{ maxWidth: 100 }} value={recipe.rating}/>
           </p>
+          <h4 className="font-bold underline">Cooking Method:</h4>
           <p className="text-gray-500">{recipe.cooking_method}</p>
           <div className="card-actions justify-end">
             <div>

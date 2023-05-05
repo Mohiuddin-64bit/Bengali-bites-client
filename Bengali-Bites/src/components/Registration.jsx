@@ -13,16 +13,27 @@ const Registration = () => {
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
+    const confirmPassword = form.confirmPassword.value;
+    const photoURL = form.photoURL.value || null; // set to null if empty
     const userName = form.name.value;
-    console.log(email, password, userName);
+
+    console.log(password, email)
+    // console.log(email, password, userName);
 
     setError("");
     if (password.length < 6) {
       return setError("Password should be more then 6 digits");
     }
+    
+    if (password !== confirmPassword) {
+      return setError("Passwords do not match");
+    }
+  
     createUser(email, password)
       .then((result) => {
         console.log(result.user);
+        setUser(result.user);
+        // navigate("/");
       })
       .catch((error) => setError(error.message));
   };
@@ -91,7 +102,7 @@ const Registration = () => {
                 </label>
                 <input
                   type="password"
-                  name="password"
+                  name="confirmPassword"
                   placeholder="Confirm Your Password"
                   className="input input-bordered"
                 />
@@ -111,7 +122,7 @@ const Registration = () => {
                   <div>
                     <img
                       className="w-10 h-10 rounded-full"
-                      src="../../public/img/google2.png"
+                      src="img/google2.png"
                       alt=""
                     />
                   </div>
@@ -121,7 +132,7 @@ const Registration = () => {
                   <div>
                     <img
                       className="w-10 h-10 rounded-full"
-                      src="../../public/img/github.png"
+                      src="img/github.png"
                       alt=""
                     />
                   </div>
@@ -131,6 +142,7 @@ const Registration = () => {
             </form>
 
             <p className="text-center mb-3">
+            <span className="text-red-500 font-bold text-lg"><small>{error}</small></span><br />
               <small>
                 Already Have an Account?{" "}
                 <Link className="text-blue-500 font-bold" to="../login">

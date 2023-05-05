@@ -11,7 +11,6 @@ const Header = () => {
       .catch((error) => console.log(error));
   };
   const [showMenu, setShowMenu] = useState(false);
-
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -54,30 +53,30 @@ const Header = () => {
             }`}
           >
             <NavLink
-              exact
+              exact='true'
               to="/"
-              activeClassName="active"
+              activeclassname="active"
               className="font-semibold"
             >
               Home
             </NavLink>
             <NavLink
               to="/blog"
-              activeClassName="active"
+              activeclassname="active"
               className="font-semibold"
             >
               Blog
             </NavLink>
             <NavLink
               to="/login"
-              activeClassName="active"
+              activeclassname="active"
               className="font-semibold"
             >
               Login
             </NavLink>
             <NavLink
               to="/registration"
-              activeClassName="active"
+              activeclassname="active"
               className="font-semibold"
             >
               Registration

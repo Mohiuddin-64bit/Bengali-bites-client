@@ -4,7 +4,6 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";  
 
 const Chefs = ({chef}) => {
-  console.log(chef.id)
   return (
     <div>
       <div className="card card-compact w-96 bg-base-100 shadow-xl">
