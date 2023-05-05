@@ -17,21 +17,21 @@ const Header = () => {
   return (
     <div>
       <div className="navbar bg-base-100 px-12">
-        <div className="flex-1">
+        <div className="lg:flex-1 block  ">
           <Link to="/" className="btn btn-ghost normal-case text-sm lg:text-xl">
             Bengali Bites
           </Link>
         </div>
         <div className="flex-none gap-4">
           {user ? (
-            <div className="flex items-center  gap-5">
+            <div className="flex items-center gap-5">
               <div className="flex items-center">
                 <div className="avatar online">
                   <div className="w-12 rounded-full">
                     <img src={user.photoURL} />
                   </div>
                 </div>
-                <p className="font-bold ml-4">
+                <p className="font-bold lg:block hidden ml-4">
                   {user.displayName || user.email}
                 </p>
               </div>
@@ -48,12 +48,12 @@ const Header = () => {
             {showMenu ? <>&times;</> : <>&#9776;</>}
           </button>
           <div
-            className={`flex-none md:flex gap-4 ${
+            className={`flex-none lg:flex gap-4 ${
               showMenu ? "block" : "hidden"
             }`}
           >
             <NavLink
-              exact='true'
+              exact="true"
               to="/"
               activeclassname="active"
               className="font-semibold"
