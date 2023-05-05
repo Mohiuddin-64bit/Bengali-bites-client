@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 const Chefs = ({chef}) => {
   return (
-    <div>
-      <div className="card card-compact w-96 bg-base-100 shadow-xl mx-auto">
+    <div className="container">
+      <div className="card card-compact px-4 bg-base-100 shadow-xl mx-auto">
       <figure className="w-full"><img src={chef.image} alt="Shoes" /></figure>
         <div className="card-body">
           <h2 className="card-title">{chef.name}</h2>
