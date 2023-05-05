@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./Provider/AuthProvider";
-
-
 const Registration = () => {
   const [error, setError] = useState("");
-  const { createUser, googleSign, gitHubSign } =
-    useContext(AuthContext);
+  const [success, setSuccess] = useState("");
+  const { createUser, googleSign, gitHubSign } = useContext(AuthContext);
 
   const handleRegistration = (event) => {
     event.preventDefault();
@@ -14,25 +12,29 @@ const Registration = () => {
     const email = form.email.value;
     const password = form.password.value;
     const confirmPassword = form.confirmPassword.value;
-    const photoURL = form.photoURL.value || null; // set to null if empty
+    // set to null if empty
     const userName = form.name.value;
 
-    console.log(password, email)
+    console.log(password, email);
     // console.log(email, password, userName);
 
     setError("");
     if (password.length < 6) {
       return setError("Password should be more then 6 digits");
     }
-    
+
     if (password !== confirmPassword) {
       return setError("Passwords do not match");
     }
-  
-    createUser(email, password)
+
+    createUser(email, password, userName)
       .then((result) => {
+        // result.user.updateProfile({
+        //   displayName: userName,
+        // });
         console.log(result.user);
-        setUser(result.user);
+        // setUser(result.user);
+        setSuccess("Account Create successfully");
         // navigate("/");
       })
       .catch((error) => setError(error.message));
@@ -42,18 +44,19 @@ const Registration = () => {
     return googleSign()
       .then((result) => {
         const user = result.user;
-        console.log(user)
+        console.log(user);
       })
       .catch((error) => setError(error.message));
   };
   const signInWithGitHub = () => {
-    return gitHubSign().then(result => {
-      const user = result.user;
-    })
-    .catch(error => {
-      setError(error.message)
-    })
-  }
+    return gitHubSign()
+      .then((result) => {
+        const user = result.user;
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
+  };
   return (
     <>
       <div className="hero min-h-screen bg-base-200">
@@ -118,7 +121,10 @@ const Registration = () => {
                 </button>
               </div>
               <div>
-                <div onClick={signInWithGoogle} className="flex items-center gap-2 cursor-pointer bg-slate-300 rounded p-2">
+                <div
+                  onClick={signInWithGoogle}
+                  className="flex items-center gap-2 cursor-pointer bg-slate-300 rounded p-2"
+                >
                   <div>
                     <img
                       className="w-10 h-10 rounded-full"
@@ -128,7 +134,10 @@ const Registration = () => {
                   </div>
                   <h4>Google</h4>
                 </div>
-                <div onClick={signInWithGitHub} className="cursor-pointer flex mt-3 items-center gap-2 bg-slate-300 rounded p-2">
+                <div
+                  onClick={signInWithGitHub}
+                  className="cursor-pointer flex mt-3 items-center gap-2 bg-slate-300 rounded p-2"
+                >
                   <div>
                     <img
                       className="w-10 h-10 rounded-full"
@@ -142,7 +151,13 @@ const Registration = () => {
             </form>
 
             <p className="text-center mb-3">
-            <span className="text-red-500 font-bold text-lg"><small>{error}</small></span><br />
+              <span className="text-green-500 font-bold text-lg">
+                <small>{success}</small>
+              </span><br />
+              <span className="text-red-500 font-bold text-lg">
+                <small>{error}</small>
+              </span>
+              <br />
               <small>
                 Already Have an Account?{" "}
                 <Link className="text-blue-500 font-bold" to="../login">
