@@ -8,7 +8,7 @@ You can access the live version of Bengali-Bites at [https://bengali-bites.web.a
 
 ## Server Link:
 
-You can access the live version of Bengali-Bites at [https://github.com/Mohiuddin-64bit/Bengali-bites-server]
+You can access Bengali-bites-server repository at: [https://github.com/Mohiuddin-64bit/Bengali-bites-server]
 
 ## Technologies Used
 
