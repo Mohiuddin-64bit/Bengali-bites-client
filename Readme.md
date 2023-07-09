@@ -6,6 +6,10 @@ Bengali-Bites is a website designed for chefs to share their recipes with a wide
 
 You can access the live version of Bengali-Bites at [https://bengali-bites.web.app/]
 
+## Server Link:
+
+You can access the live version of Bengali-Bites at [https://github.com/Mohiuddin-64bit/Bengali-bites-server]
+
 ## Technologies Used
 
 - ReactJS
